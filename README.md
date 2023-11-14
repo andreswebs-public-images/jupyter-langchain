@@ -5,6 +5,7 @@ A Jupyter Notebook server with Langchain pre-installed.
 ## Run
 
 ```sh
+export WORKDIR=$(pwd) # <-- set this to whatever you'd like
 docker run \
     --rm \
     --interactive \
@@ -13,7 +14,7 @@ docker run \
     --user root \
     --env NB_UID=$(id -u) \
     --env NB_GID=$(id -g) \
-    --volume "$(pwd):/home/jovyan/work" \
+    --volume "${WORKDIR}:/home/jovyan/work" \
     andreswebs/jupyter-langchain
 ```
 
