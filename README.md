@@ -5,7 +5,10 @@ A Jupyter Notebook server with Langchain pre-installed.
 ## Run
 
 ```sh
-export WORKDIR=$(pwd) # <-- set this to whatever you'd like
+export WORKDIR=$(pwd) # <-- set this to whatever
+```
+
+```sh
 docker run \
     --rm \
     --interactive \
