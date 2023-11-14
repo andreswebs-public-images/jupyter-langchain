@@ -1,0 +1,7 @@
+---
+dependencies:
+  - ipykernel
+  - numpy
+  - matplotlib
+  - pandas
+  - langchain
