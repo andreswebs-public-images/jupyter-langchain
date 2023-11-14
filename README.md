@@ -1,5 +1,7 @@
 # jupyter-langchain
 
+A Jupyter Notebook server with Langchain pre-installed.
+
 ## Run
 
 ```sh
@@ -12,8 +14,10 @@ docker run \
     --env NB_UID=$(id -u) \
     --env NB_GID=$(id -g) \
     --volume "$(pwd):/home/jovyan/work" \
-    "${LOCAL_IMAGE_NAME}"
+    andreswebs/jupyter-langchain
 ```
+
+## Config
 
 To get the default config:
 
