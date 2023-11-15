@@ -15,6 +15,7 @@ docker run \
     --tty \
     --publish 8888:8888 \
     --user root \
+    --env OPENAI_API_KEY \
     --env NB_UID=$(id -u) \
     --env NB_GID=$(id -g) \
     --volume "${WORKDIR}:/home/jovyan/work" \
