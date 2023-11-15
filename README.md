@@ -6,6 +6,7 @@ A Jupyter Notebook server with Langchain pre-installed.
 
 ```sh
 export WORKDIR=$(pwd) # <-- set this to whatever
+export OPENAI_API_KEY # <-- set this to the OpenAI API Key
 ```
 
 ```sh
