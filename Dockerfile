@@ -1,15 +1,38 @@
 FROM quay.io/jupyter/base-notebook
 
-ARG ENV_NAME=langchain
+ARG TARGETOS="linux"
+ARG TARGETARCH="amd64"
+ARG ENV_NAME="langchain"
 
 USER root
 
 RUN \
     apt-get update && \
     apt-get install --yes --quiet \
-        build-essential && \
+        build-essential \
+        git \
+        curl \
+        wget \
+        zip \
+        unzip \
+        gettext-base \
+        lsb-core \
+        jq &&
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN \
+    if [ "${TARGETARCH}" = "amd64" ]; then export AWS_ARCH="x86_64" ; fi && \
+    if [ "${TARGETARCH}" = "arm64" ]; then export AWS_ARCH="aarch64" ; fi && \
+    curl \
+        --fail \
+        --silent \
+        --location \
+        --output "awscliv2.zip" \
+        "https://awscli.amazonaws.com/awscli-exe-${TARGETOS}-${AWS_ARCH}.zip" && \
+    unzip -qq awscliv2.zip && \
+    ./aws/install && \
+    rm -rf ./aws/install awscliv2.zip
 
 RUN ENV_SCRIPT=/usr/local/bin/before-notebook.d/activate-env.sh && \
     echo "#!/bin/bash" > "${ENV_SCRIPT}" && \
