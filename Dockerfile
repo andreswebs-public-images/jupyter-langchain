@@ -17,7 +17,7 @@ RUN \
         unzip \
         gettext-base \
         lsb-core \
-        jq &&
+        jq && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
