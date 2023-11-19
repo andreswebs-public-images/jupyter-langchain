@@ -43,6 +43,8 @@ COPY --chown=${NB_UID}:${NB_GID} environment.yml /tmp/
 
 COPY --chown=${NB_UID}:${NB_GID} jupyter_server_config.py /home/jovyan/.jupyter/
 
+COPY --from=mikefarah/yq /usr/bin/yq /usr/bin/yq
+
 USER ${NB_UID}
 
 RUN \
