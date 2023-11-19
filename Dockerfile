@@ -30,7 +30,7 @@ RUN \
 
 RUN \
     "${CONDA_DIR}/envs/${ENV_NAME}/bin/python" -m \
-        ipykernel install --user --name="${ENV_NAME}" --display-name="Python (${ENV_NAME})" && \
+        ipykernel install --user --name="${ENV_NAME}" --display-name="Python 3 (${ENV_NAME})" && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "${HOME}"
 
