@@ -32,7 +32,7 @@ RUN \
         "https://awscli.amazonaws.com/awscli-exe-${TARGETOS}-${AWS_ARCH}.zip" && \
     unzip -qq awscliv2.zip && \
     ./aws/install && \
-    rm -rf ./aws/install awscliv2.zip
+    rm -rf ./aws awscliv2.zip
 
 RUN ENV_SCRIPT=/usr/local/bin/before-notebook.d/activate-env.sh && \
     echo "#!/bin/bash" > "${ENV_SCRIPT}" && \
@@ -44,6 +44,8 @@ COPY --chown=${NB_UID}:${NB_GID} environment.yml /tmp/
 COPY --chown=${NB_UID}:${NB_GID} jupyter_server_config.py /home/jovyan/.jupyter/
 
 COPY --from=mikefarah/yq /usr/bin/yq /usr/bin/yq
+
+RUN chown -R "${NB_UID}:${NB_GID}" "${HOME}"
 
 USER ${NB_UID}
 
