@@ -36,6 +36,34 @@ docker run \
     cat /home/jovyan/.jupyter/jupyter_server_config.py
 ```
 
+## AWS SageMaker setup
+
+```sh
+ACCOUNT_ID=$(
+    aws sts get-caller-identity \
+        --query 'Account' \
+        --output text
+)
+
+REGION=$(aws configure get region)
+
+ECR_IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}"
+
+aws sagemaker create-image \
+    --image-name "${IMAGE_NAME}" \
+    --role-arn "${ROLE_ARN}"
+
+aws sagemaker create-image-version \
+    --image-name "${IMAGE_NAME}" \
+    --base-image "${ECR_IMAGE_URI}"
+
+aws sagemaker create-app-image-config \
+    --cli-input-json "file://aws-sagemaker/app-image-config-input.json"
+
+aws sagemaker update-domain \
+    --cli-input-json "file://aws-sagemaker/update-domain-input.json"
+```
+
 ## Authors
 
 **Andre Silva** [andreswebs](https://github.com/andreswebs)
@@ -53,6 +81,10 @@ docker run \
 <https://jupyter-server.readthedocs.io/en/latest/other/full-config.html>
 
 <https://jupyter-docker-stacks.readthedocs.io/en/latest/using/common.html>
+
+<https://github.com/aws-samples/sagemaker-studio-custom-image-samples>
+
+<https://github.com/aws-samples/sagemaker-studio-custom-image-samples/blob/main/DEVELOPMENT.md>
 
 ## Acknowledgements
 
