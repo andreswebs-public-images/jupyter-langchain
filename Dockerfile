@@ -35,8 +35,8 @@ RUN \
     rm -rf ./aws awscliv2.zip
 
 RUN ENV_SCRIPT=/usr/local/bin/before-notebook.d/activate-env.sh && \
-    echo "#!/bin/bash" > "${ENV_SCRIPT}" && \
-    echo "eval \"$(conda shell.bash activate \"${ENV_NAME}\")\"" >> ${ENV_SCRIPT} && \
+    echo "#!/usr/bin/env bash" > "${ENV_SCRIPT}" && \
+    echo "eval \"$(conda shell.bash activate \"${ENV_NAME}\")\"" >> "${ENV_SCRIPT}" && \
     chmod +x "${ENV_SCRIPT}"
 
 COPY --chown=${NB_UID}:${NB_GID} environment.yml /tmp/
@@ -45,9 +45,9 @@ COPY --chown=${NB_UID}:${NB_GID} jupyter_server_config.py /home/jovyan/.jupyter/
 
 COPY --from=mikefarah/yq /usr/bin/yq /usr/bin/yq
 
-RUN chown -R "${NB_UID}:${NB_GID}" "${HOME}"
+RUN chown -R "${NB_UID}:${NB_GID}" /home/jovyan
 
-USER ${NB_UID}
+USER jovyan
 
 RUN \
     mamba env create \
