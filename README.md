@@ -57,6 +57,10 @@ ECR_IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_REPO_NAME}:${
 
 IMAGE_NAME="jupyter-langchain"
 
+# this is the SageMaker execution role, assumed to be present already
+# look up the arn and insert
+ROLE_ARN="<insert>"
+
 aws sagemaker create-image \
     --image-name "${IMAGE_NAME}" \
     --role-arn "${ROLE_ARN}"
