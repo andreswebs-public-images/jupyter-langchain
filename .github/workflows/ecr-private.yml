@@ -70,3 +70,13 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           provenance: false
+
+      - name: Update SageMaker version
+        if: ${{ github.event_name != 'pull_request' }}
+        env:
+          IMAGE_NAME: jupyter-langchain
+          ECR_IMAGE_URI: ${{ steps.image-names.outputs.image }}
+        run: |
+          aws sagemaker create-image-version \
+              --image-name "${IMAGE_NAME}" \
+              --base-image "${ECR_IMAGE_URI}"
