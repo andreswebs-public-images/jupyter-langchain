@@ -5,6 +5,7 @@ permissions:
   id-token: write
 
 on:
+  workflow_dispatch:
 
   push:
     branches:
@@ -12,21 +13,17 @@ on:
 
   schedule:
     - cron: 0 0 * * 0
-
 jobs:
-
   ecr-public:
-
     runs-on: ubuntu-latest
 
     env:
       CONTAINER_REGISTRY: public.ecr.aws
       CONTAINER_REPOSITORY: andreswebs/jupyter-langchain
-      IMAGE_TAG:  ${{ github.sha }}
+      IMAGE_TAG: ${{ github.sha }}
       IMAGE_DEFAULT_TAG: latest
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
