@@ -6,6 +6,8 @@ ARG ENV_NAME="langchain"
 
 USER root
 
+COPY --from=denoland/deno:bin /deno /usr/local/bin/deno
+
 RUN \
     apt-get update && \
     apt-get install --yes --quiet \

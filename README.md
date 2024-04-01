@@ -47,7 +47,15 @@ ACCOUNT_ID=$(
 
 REGION=$(aws configure get region)
 
+## ensure repo exists with name
+## name
+ECR_REPO_NAME="your/jupyter-langchain"
+## tag
+IMAGE_TAG="latest"
+
 ECR_IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}"
+
+IMAGE_NAME="jupyter-langchain"
 
 aws sagemaker create-image \
     --image-name "${IMAGE_NAME}" \
