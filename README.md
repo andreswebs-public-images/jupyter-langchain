@@ -1,8 +1,11 @@
 # jupyter-langchain
 
-A Jupyter Notebook server with Langchain pre-installed.
+A Jupyter Notebook server with Langchain and Deno pre-installed.
 
-## Run
+This project can be used to run a custom image on AWS SageMaker. See this
+[guide](docs/aws-sagemaker.howto.md) for more information.
+
+## Run locally
 
 ```sh
 export WORKDIR=$(pwd) # <-- set this to whatever
@@ -21,59 +24,6 @@ docker run \
     --env NB_GID=$(id -g) \
     --volume "${WORKDIR}:/home/jovyan/work" \
     andreswebs/jupyter-langchain
-```
-
-## Config
-
-To get the default config:
-
-```sh
-docker run \
-    --rm
-    --interactive \
-    --tty \
-    quay.io/jupyter/base-notebook \
-    cat /home/jovyan/.jupyter/jupyter_server_config.py
-```
-
-## AWS SageMaker setup
-
-```sh
-ACCOUNT_ID=$(
-    aws sts get-caller-identity \
-        --query 'Account' \
-        --output text
-)
-
-AWS_REGION=$(aws configure get region)
-
-## ensure repo exists with name
-## name
-ECR_REPO_NAME="your/jupyter-langchain"
-## tag
-IMAGE_TAG="latest"
-
-ECR_IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}"
-
-IMAGE_NAME="jupyter-langchain"
-
-# this is the SageMaker execution role, assumed to be present already
-# look up the arn and insert
-ROLE_ARN="<insert>"
-
-aws sagemaker create-image \
-    --image-name "${IMAGE_NAME}" \
-    --role-arn "${ROLE_ARN}"
-
-aws sagemaker create-image-version \
-    --image-name "${IMAGE_NAME}" \
-    --base-image "${ECR_IMAGE_URI}"
-
-aws sagemaker create-app-image-config \
-    --cli-input-json "file://aws-sagemaker/app-image-config-input.json"
-
-aws sagemaker update-domain \
-    --cli-input-json "file://aws-sagemaker/update-domain-input.json"
 ```
 
 ## Authors
