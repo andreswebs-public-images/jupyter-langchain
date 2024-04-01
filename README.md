@@ -1,6 +1,6 @@
 # jupyter-langchain
 
-A Jupyter Notebook server with Langchain and Deno pre-installed.
+A Jupyter Notebook server container image with Langchain and Deno pre-installed.
 
 This project can be used to run a custom image on AWS SageMaker. See this
 [guide](docs/aws-sagemaker.howto.md) for more information.
