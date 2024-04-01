@@ -2,6 +2,7 @@
 name: docker.io
 
 on:
+  workflow_dispatch:
 
   push:
     branches:
@@ -11,19 +12,16 @@ on:
     - cron: 0 0 * * 0
 
 jobs:
-
   dockerhub:
-
     runs-on: ubuntu-latest
 
     env:
       CONTAINER_REGISTRY: docker.io
       CONTAINER_REPOSITORY: andreswebs/jupyter-langchain
-      IMAGE_TAG:  ${{ github.sha }}
+      IMAGE_TAG: ${{ github.sha }}
       IMAGE_DEFAULT_TAG: latest
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v4
 
