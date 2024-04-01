@@ -64,3 +64,5 @@ RUN \
     fix-permissions "${HOME}"
 
 RUN echo "conda activate ${ENV_NAME}" >> "${HOME}/.bashrc"
+
+RUN deno jupyter --unstable --install
