@@ -2,8 +2,8 @@
 
 A Jupyter Notebook server container image with Langchain and Deno pre-installed.
 
-This project can be used to run a custom image on AWS SageMaker. See this
-[guide](docs/aws-sagemaker.howto.md) for more information.
+This project can be used to run a custom image on AWS SageMaker Studio. See this
+[guide](docs/aws-sagemaker-studio.howto.md) for more information.
 
 ## Run locally
 
@@ -25,6 +25,13 @@ docker run \
     --volume "${WORKDIR}:/home/jovyan/work" \
     andreswebs/jupyter-langchain
 ```
+
+## Configuration
+
+Edit the [`jupyter_server_config.py`](jupyter_server_config.py) file before
+building to customize the server. See this
+[guide](docs/default-jupyter-config.howto.md) for an example of how to generate
+that file.
 
 ## Authors
 

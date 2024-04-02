@@ -1,4 +1,4 @@
-# AWS SageMaker setup
+# AWS SageMaker Studio setup
 
 ## Pre-requisites
 
@@ -10,9 +10,9 @@ beforehand:
 - Update `~/.docker/config.json` to use the ECR credential helper for the ECR
   registry in the AWS account
 - Configure credentials for the AWS CLI with proper permissions
-- Set up a SageMaker domain in the AWS account
-- Create an execution IAM role for SageMaker (will be created as part of the
-  default domain bootstrap)
+- Set up a SageMaker Studio domain in the AWS account
+- Create an execution IAM role for SageMaker Studio (will be created as part of
+  the default domain bootstrap)
 
 ## Pull or build image
 
@@ -66,7 +66,7 @@ cp ./aws-sagemaker/update-domain-input.example.json ./aws-sagemaker/update-domai
 Edit `./aws-sagemaker/update-domain-input.json` and insert the SageMaker domain
 ID.
 
-Update the SageMaker domain to use the custom image:
+Update the SageMaker Studio domain to use the custom image:
 
 ```sh
 IMAGE_NAME="jupyter-langchain"
